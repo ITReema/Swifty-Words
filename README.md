@@ -10,5 +10,11 @@ A word game based on the popular indie game 7 Little Words. Users are going to s
 <p align="center">
   <img width="500" height="300" src="https://user-images.githubusercontent.com/27751735/57090047-90557480-6d0e-11e9-9d63-d8141594dfbc.png">
 </p>
+
 2. If the user enters an incorrect guess, show an alert telling them they are wrong.
+<p align="center">
+  <img width="500" height="300" src="https://user-images.githubusercontent.com/27751735/57116793-15b54500-6d60-11e9-8267-dd6ebef3f668.png">
+</p>
+
 3. Try making the game also deduct points if the player makes an incorrect guess.
+
