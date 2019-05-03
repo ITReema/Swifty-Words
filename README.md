@@ -17,4 +17,6 @@ A word game based on the popular indie game 7 Little Words. Users are going to s
 </p>
 
 3. Try making the game also deduct points if the player makes an incorrect guess.
-
+<p align="center">
+  <img width="500" height="300" src="https://user-images.githubusercontent.com/27751735/57117552-988cce80-6d65-11e9-829a-547fbb5b0c78.png">
+</p>
