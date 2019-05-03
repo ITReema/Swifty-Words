@@ -157,7 +157,7 @@ class ViewController: UIViewController {
     }
     
     @objc func submitTapped(_ sender: UIButton) {
-        guard let answerText = currentAnswer.text else { return }
+        guard let answerText = currentAnswer.text else {return}
         
         if let solutionPosition = solutions.firstIndex(of: answerText) {
             activatedButtons.removeAll()
@@ -174,6 +174,9 @@ class ViewController: UIViewController {
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+        } else {
+            AnserIncorrect()
+            currentAnswer.text = ""
         }
     }
     
@@ -236,6 +239,12 @@ class ViewController: UIViewController {
         for btn in letterButtons {
             btn.isHidden = false
         }
+    }
+    // If the user enters an incorrect guess, show an alert telling them they are wrong.
+    func AnserIncorrect() {
+        let ac = UIAlertController(title: "Incorrect Answer", message: "Try Again!!", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(ac, animated: true)
     }
 
 }
