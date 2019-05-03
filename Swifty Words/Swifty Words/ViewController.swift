@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     
     var activatedButtons = [UIButton]()
     var solutions = [String]()
-    
+    var total = 0
     var score = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -168,15 +168,16 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""
             score += 1
+            total += 1
             
-            if score % 7 == 0 {
+            if total % 7 == 0 {
                 let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
         } else {
             AnserIncorrect()
-            currentAnswer.text = ""
+            score -= 1
         }
     }
     
@@ -210,7 +211,6 @@ class ViewController: UIViewController {
                     let solutionWord = answer.replacingOccurrences(of: "|", with: "")
                     solutionString += "\(solutionWord.count) letters\n"
                     solutions.append(solutionWord)
-                    
                     let bits = answer.components(separatedBy: "|")
                     letterBits += bits
                 }
@@ -227,7 +227,9 @@ class ViewController: UIViewController {
             for i in 0 ..< letterButtons.count {
                 letterButtons[i].setTitle(letterBits[i], for: .normal)
             }
+            
         }
+        
     }
     
     func levelUp(action: UIAlertAction) {
