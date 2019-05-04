@@ -53,6 +53,9 @@ class ViewController: UIViewController {
         answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         view.addSubview(answersLabel)
         
+        cluesLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        
         currentAnswer = UITextField()
         currentAnswer.translatesAutoresizingMaskIntoConstraints = false
         currentAnswer.placeholder = "Tap letters to guess"
@@ -145,7 +148,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadLevel()
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.loadLevel()
+        }
     }
     
     
@@ -191,7 +196,7 @@ class ViewController: UIViewController {
         activatedButtons.removeAll()
     }
     
-    func loadLevel() {
+    @objc func loadLevel() {
         var clueString = ""
         var solutionString = ""
         var letterBits = [String]()
@@ -217,19 +222,21 @@ class ViewController: UIViewController {
             }
         }
         
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else {return}
+        
         // Now configure the buttons and labels
-        cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
-        answersLabel.text = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
+        strongSelf.cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+        strongSelf.answersLabel.text = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
         
         letterBits.shuffle()
         
-        if letterBits.count == letterButtons.count {
-            for i in 0 ..< letterButtons.count {
-                letterButtons[i].setTitle(letterBits[i], for: .normal)
+            if letterBits.count == strongSelf.letterButtons.count {
+            for i in 0 ..< strongSelf.letterButtons.count {
+                strongSelf.letterButtons[i].setTitle(letterBits[i], for: .normal)
             }
-            
-        }
-        
+         }
+       }
     }
     
     func levelUp(action: UIAlertAction) {
